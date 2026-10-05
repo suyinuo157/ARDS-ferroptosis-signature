@@ -1,0 +1,128 @@
+R version 4.2.0 (2022-04-22 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Chinese (Simplified)_China.utf8 
+[2] LC_CTYPE=Chinese (Simplified)_China.utf8   
+[3] LC_MONETARY=Chinese (Simplified)_China.utf8
+[4] LC_NUMERIC=C                               
+[5] LC_TIME=Chinese (Simplified)_China.utf8    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] jsonlite_1.8.7          httr_1.4.7             
+ [3] igraph_1.5.1            WGCNA_1.72-5           
+ [5] fastcluster_1.2.3       dynamicTreeCut_1.63-1  
+ [7] enrichplot_1.18.3       clusterProfiler_4.6.2  
+ [9] org.Hs.eg.db_3.15.0     AnnotationDbi_1.58.0   
+[11] IRanges_2.30.1          S4Vectors_0.34.0       
+[13] Biobase_2.56.0          BiocGenerics_0.42.0    
+[15] GEOquery_2.64.2         limma_3.52.4           
+[17] pheatmap_1.0.12         reshape2_1.4.4         
+[19] ggplot2_3.4.4           glmnet_4.1-7           
+[21] Matrix_1.5-4.1          caret_6.0-94           
+[23] lattice_0.21-8          pROC_1.18.4            
+[25] randomForest_4.7-1.1    e1071_1.7-13           
+[27] class_7.3-22            MASS_7.3-60            
+
+loaded via a namespace (and not attached):
+ [1] shadowtext_0.1.2        scatterpie_0.2.1       
+ [3] R.methodsS3_1.8.2       tidyr_1.3.0            
+ [5] bit64_4.0.5             parallel_4.2.0         
+ [7] RColorBrewer_1.1-3      rprojroot_2.0.3        
+ [9] tools_4.2.0             utf8_1.2.3             
+[11] R6_2.5.1                DBI_1.1.3              
+[13] colorspace_2.1-0        gridExtra_2.3          
+[15] tidyselect_1.2.0        bit_4.0.5              
+[17] compiler_4.2.0          cli_3.6.1              
+[19] xml2_1.3.5              DelayedArray_0.22.0    
+[21] labeling_0.4.2          scales_1.2.1           
+[23] stringr_1.5.0           digest_0.6.33          
+[25] rmarkdown_2.25          XVector_0.36.0         
+[27] pkgconfig_2.0.3         htmltools_0.5.6        
+[29] fastmap_1.1.1           rlang_1.1.1            
+[31] rstudioapi_0.15.0       farver_2.1.1           
+[33] shape_1.4.6             generics_0.1.3         
+[35] dplyr_1.1.3             R.oo_1.25.0            
+[37] RCurl_1.98-1.12         magrittr_2.0.3         
+[39] GO.db_3.15.0            MatrixModels_0.5-2     
+[41] Rcpp_1.0.11             munsell_0.5.0          
+[43] fansi_1.0.4             lifecycle_1.0.3        
+[45] stringi_1.7.12          R.utils_2.12.2         
+[47] grid_4.2.0              blob_1.2.4             
+[49] dplyr_1.1.3             crayon_1.5.2           
+[51] cowplot_1.1.1           splines_4.2.0          
+[53] hms_1.1.3               knitr_1.44             
+[55] pillar_1.9.0            fgsea_1.22.0           
+[57] gtable_0.3.4            codetools_0.2-19       
+[59] ggraph_2.1.0            tidygraph_1.2.3        
+[61] DBI_1.1.3               quantmod_0.4.25        
+[63] TTR_0.24.3              purrr_1.0.2            
+[65] polyclip_1.10-4         data.table_1.14.8      
+[67] tweenr_2.0.2            vctrs_0.6.3            
+[69] png_0.1-8               treeio_1.20.2          
+[71] tidyselect_1.2.0        gridGraphics_0.5-1     
+[73] ggtree_3.4.4          
+
+==================================================
+主要包版本说明：
+==================================================
+
+数据获取与处理：
+  - GEOquery: 2.64.2       # GEO数据下载
+  - Biobase: 2.56.0        # ExpressionSet处理
+  - limma: 3.52.4          # 差异表达分析
+
+富集分析：
+  - clusterProfiler: 4.6.2 # 功能富集分析
+  - org.Hs.eg.db: 3.15.0   # 人类基因注释
+  - enrichplot: 1.18.3     # 富集结果可视化
+  - fgsea: 1.22.0          # GSEA快速算法
+
+网络分析：
+  - WGCNA: 1.72-5          # 加权基因共表达网络
+  - igraph: 1.5.1          # 网络分析与可视化
+  - tidygraph: 1.2.3       # 网络数据结构
+
+机器学习：
+  - glmnet: 4.1-7          # LASSO/Elastic Net回归
+  - caret: 6.0-94          # 机器学习框架
+  - pROC: 1.18.4           # ROC曲线与AUC
+  - randomForest: 4.7-1.1  # 随机森林
+  - e1071: 1.7-13          # SVM/Naive Bayes
+  - class: 7.3-22          # KNN
+  - MASS: 7.3-60           # LDA
+
+可视化：
+  - ggplot2: 3.4.4         # 绘图
+  - pheatmap: 1.0.12       # 热图
+  - reshape2: 1.4.4        # 数据整形
+  - ggraph: 2.1.0          # 网络可视化
+  - ggtree: 3.4.4          # 进化树可视化
+
+其他：
+  - httr: 1.4.7            # HTTP请求（STRING API）
+  - jsonlite: 1.8.7        # JSON数据处理
+
+==================================================
+安装命令参考：
+==================================================
+
+# 基础包
+install.packages(c("ggplot2", "pheatmap", "reshape2", "igraph",
+                   "glmnet", "pROC", "caret", "randomForest",
+                   "e1071", "httr", "jsonlite"))
+
+# Bioconductor 包
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(c(
+    "GEOquery", "Biobase", "limma",
+    "clusterProfiler", "org.Hs.eg.db", "enrichplot", "fgsea",
+    "WGCNA"
+))
