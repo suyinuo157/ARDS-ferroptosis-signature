@@ -1,102 +1,121 @@
 # ARDS-ferroptosis-signature
 
-## 项目简介
+## Overview
 
-基于GEO公共数据（GSE32707, GSE10474），通过转录组学和生物信息学方法，系统解析急性呼吸窘迫综合征（ARDS）疾病进程中铁死亡（ferroptosis）的分子特征，构建基于铁死亡基因的诊断模型，并预测潜在的靶向治疗药物。
+This repository contains the complete bioinformatics analysis pipeline for the paper **"Identification of a ferroptosis-related 8-gene diagnostic signature and Nrf2-centered regulatory axis in acute respiratory distress syndrome"**.
 
-## 数据来源
+Using public transcriptome data from GEO (GSE32707, GSE10474), we systematically characterize ferroptosis dysregulation across the SIRS–sepsis–ARDS disease spectrum, develop and validate an 8-gene ferroptosis diagnostic signature, delineate the Nrf2-ferroptosis-immune regulatory axis, and identify baicalein as a multi-target natural product candidate supported by molecular docking.
 
-| 数据集 | GEO编号 | 平台 | 样本数 | 说明 |
-|--------|---------|------|--------|------|
-| 主队列 | GSE32707 | GPL10558 (Illumina HumanHT-12 V4.0) | 262 | Control / SIRS / Sepsis / ARDS 四组疾病进程 |
-| 验证队列 | GSE10474 | GPL570 (Affymetrix HG-U133 Plus 2.0) | - | 外部独立验证 |
+## Data Sources
 
-## 目录结构
+| Dataset           | GEO Accession | Platform                             | Samples | Description                                                     |
+| ----------------- | ------------- | ------------------------------------ | ------- | --------------------------------------------------------------- |
+| Discovery cohort  | GSE32707      | GPL10558 (Illumina HumanHT-12 V4.0)  | 262     | Control / SIRS / Sepsis / ARDS — four-stage disease progression |
+| Validation cohort | GSE10474      | GPL570 (Affymetrix HG-U133 Plus 2.0) | 34      | Independent external validation                                 |
+
+## Repository Structure
 
 ```
 ARDS-ferroptosis-signature/
-├── 01_data_preprocessing/          # 数据下载与预处理
-│   ├── 01_download_GEO.R           # GEO数据下载与质量控制
-│   └── 02_data_processing.R        # 样本过滤、分组、log2转换
+├── 01_data_preprocessing/          # Data download and preprocessing
+│   ├── 01_download_GEO.R           # GEO data download and quality control
+│   └── 02_data_processing.R        # Sample filtering, grouping, log2 transformation
 │
-├── 02_differential_expression/     # 差异表达分析
-│   └── 01_diff_analysis.R          # limma差异分析 + 火山图
+├── 02_differential_expression/     # Differential expression analysis
+│   └── 01_diff_analysis.R          # limma differential expression + volcano plots
 │
-├── 03_functional_enrichment/       # 功能富集分析
-│   ├── 01_GSEA.R                   # GSEA富集分析 + ssGSEA铁死亡评分
-│   └── 02_extended_enrichment.R    # 扩展通路富集分析
+├── 03_functional_enrichment/       # Functional enrichment analysis
+│   ├── 01_GSEA.R                   # GSEA + ssGSEA ferroptosis scoring
+│   └── 02_extended_enrichment.R    # Extended pathway enrichment analysis
 │
-├── 04_WGCNA/                       # 加权基因共表达网络分析
-│   └── 01_WGCNA.R                  # WGCNA模块识别 + 模块-性状关联
+├── 04_WGCNA/                       # Weighted gene co-expression network analysis
+│   └── 01_WGCNA.R                  # WGCNA module detection + module-trait association
 │
-├── 05_PPI_network/                 # 蛋白互作网络分析
-│   ├── 01_PPI_construction.R       # PPI网络构建 + Hub基因筛选
-│   ├── 02_MCODE_modules.R          # MCODE模块分析 + TF-miRNA共调控
-│   └── 03_TF_miRNA_network.R       # 转录因子调控网络分析
+├── 05_PPI_network/                 # Protein-protein interaction network
+│   ├── 01_PPI_construction.R       # PPI network construction + hub gene screening
+│   ├── 02_MCODE_modules.R          # MCODE module analysis + TF-miRNA co-regulation
+│   └── 03_TF_miRNA_network.R       # Transcription factor regulatory network
 │
-├── 06_ferroptosis_analysis/        # 铁死亡分析
-│   ├── 01_ferroptosis_score.R      # 铁死亡关键基因表达可视化
-│   └── 02_Nrf2_regulation.R        # Nrf2对铁死亡基因的调控验证
+├── 06_ferroptosis_analysis/        # Ferroptosis analysis
+│   ├── 01_ferroptosis_score.R      # Ferroptosis key gene expression visualization
+│   └── 02_Nrf2_regulation.R        # Nrf2 regulation of ferroptosis genes
 │
-├── 07_immune_infiltration/         # 免疫浸润分析
-│   └── 01_immune_infiltration.R    # ssGSEA免疫评分 + 铁死亡-免疫相关性
+├── 07_immune_infiltration/         # Immune infiltration analysis
+│   └── 01_immune_infiltration.R    # ssGSEA immune scores + ferroptosis-immune correlation
 │
-├── 08_ceRNA_network/               # ceRNA调控网络
-│   └── 01_ceRNA_network.R          # lncRNA-miRNA-mRNA ceRNA网络
+├── 08_ceRNA_network/               # ceRNA regulatory network
+│   └── 01_ceRNA_network.R          # lncRNA-miRNA-mRNA ceRNA network
 │
-├── 09_diagnostic_model/            # 诊断模型构建
-│   ├── 01_LASSO_model.R            # LASSO-Logistic回归诊断模型
-│   └── 02_ML_comparison.R          # 多种机器学习模型比较
+├── 09_diagnostic_model/            # Diagnostic model construction
+│   ├── 01_LASSO_model.R            # LASSO-logistic regression diagnostic model
+│   └── 02_ML_comparison.R          # Multiple machine learning model comparison
 │
-├── 10_validation/                  # 外部验证
-│   └── 01_external_validation.R    # GSE10474独立数据集验证
+├── 10_validation/                  # External validation
+│   └── 01_external_validation.R    # Independent validation on GSE10474
 │
-├── 11_drug_discovery/              # 药物发现
-│   └── 01_drug_target_network.R    # 药物-靶点网络 + 候选药物预测
+├── 11_drug_discovery/              # Drug discovery
+│   └── 01_drug_target_network.R    # Drug-target network + candidate drug prediction
 │
-├── 12_molecular_docking/           # 分子对接验证
-│   ├── 01_prepare_receptors.py     # 受体制备（PDB下载 + 预处理）
-│   ├── 02_prepare_ligand.py        # 配体制备（PubChem下载 + 转换）
-│   └── 03_run_docking.py           # AutoDock Vina分子对接
+├── 12_molecular_docking/           # Molecular docking validation
+│   ├── 01_prepare_receptors.py     # Receptor preparation (PDB download + preprocessing)
+│   ├── 02_prepare_ligand.py        # Ligand preparation (PubChem download + conversion)
+│   └── 03_run_docking.py           # AutoDock Vina molecular docking
 │
-├── supplementary/                  # 辅助脚本
-│   └── utils.R                     # 通用工具函数
+├── supplementary/                  # Auxiliary scripts
+│   └── utils.R                     # Utility functions
 │
-├── README.md                       # 项目说明文档
-├── .gitignore                      # Git忽略文件
-├── R_environment.txt               # R环境说明
-└── requirements.txt                # Python依赖
+├── README.md                       # This file
+├── .gitignore                      # Git ignore rules
+├── R_environment.txt               # R environment specification
+└── requirements.txt                # Python dependencies
 ```
 
-## 环境要求
+## Environment Requirements
 
-### R 环境
+### R Environment
+
 - R >= 4.2.0
-- 主要 R 包：
-  - 数据获取：`GEOquery`, `Biobase`
-  - 差异分析：`limma`
-  - 富集分析：`clusterProfiler`, `org.Hs.eg.db`, `enrichplot`
-  - 网络分析：`WGCNA`, `igraph`
-  - 机器学习：`glmnet`, `caret`, `randomForest`, `e1071`, `pROC`
-  - 可视化：`ggplot2`, `pheatmap`, `reshape2`
-  - 其他：`httr`, `jsonlite`
 
-### Python 环境
+- Key R packages:
+
+  - Data retrieval: `GEOquery`, `Biobase`
+
+  - Differential analysis: `limma`
+
+  - Enrichment analysis: `clusterProfiler`, `org.Hs.eg.db`, `enrichplot`
+
+  - Network analysis: `WGCNA`, `igraph`
+
+  - Machine learning: `glmnet`, `caret`, `randomForest`, `e1071`, `pROC`
+
+  - Visualization: `ggplot2`, `pheatmap`, `reshape2`
+
+  - Utilities: `httr`, `jsonlite`
+
+### Python Environment
+
 - Python >= 3.8
-- 主要 Python 包：
-  - `requests`（数据下载）
-  - `biopython`（可选，PDB文件处理）
-  - 外部工具：
-    - AutoDock Vina >= 1.2（分子对接）
-    - OpenBabel（格式转换）
-    - MGLTools / AutoDockTools（受体/配体预处理）
 
-## 复现步骤
+- Key Python packages:
 
-### 1. 环境准备
+  - `requests` (data download)
 
-```bash
-# 安装 R 包（在 R 中执行）
+  - `biopython` (optional, PDB file handling)
+
+- External tools:
+
+  - AutoDock Vina >= 1.2 (molecular docking)
+
+  - OpenBabel (format conversion)
+
+  - MGLTools / AutoDockTools (receptor/ligand preprocessing)
+
+## Reproduction Instructions
+
+### 1. Environment Setup
+
+```r
+# Install R packages (run in R)
 install.packages(c("BiocManager", "ggplot2", "pheatmap", "reshape2",
                    "glmnet", "caret", "pROC", "randomForest", "e1071",
                    "igraph", "httr", "jsonlite"))
@@ -105,67 +124,67 @@ BiocManager::install(c("GEOquery", "Biobase", "limma", "clusterProfiler",
 ```
 
 ```bash
-# 安装 Python 依赖
+# Install Python dependencies
 pip install -r requirements.txt
 ```
 
-### 2. 按顺序运行脚本
+### 2. Run Scripts Sequentially
 
-所有脚本请在项目根目录下运行，确保相对路径正确。
+All scripts should be executed from the project root directory to ensure correct relative paths.
 
 ```bash
-# 01. 数据下载与预处理
+# 01. Data download and preprocessing
 Rscript 01_data_preprocessing/01_download_GEO.R
 Rscript 01_data_preprocessing/02_data_processing.R
 
-# 02. 差异表达分析
+# 02. Differential expression analysis
 Rscript 02_differential_expression/01_diff_analysis.R
 
-# 03. 功能富集分析
+# 03. Functional enrichment analysis
 Rscript 03_functional_enrichment/01_GSEA.R
 Rscript 03_functional_enrichment/02_extended_enrichment.R
 
-# 04. WGCNA共表达网络
+# 04. WGCNA co-expression network
 Rscript 04_WGCNA/01_WGCNA.R
 
-# 05. PPI网络分析
+# 05. PPI network analysis
 Rscript 05_PPI_network/01_PPI_construction.R
 Rscript 05_PPI_network/02_MCODE_modules.R
 Rscript 05_PPI_network/03_TF_miRNA_network.R
 
-# 06. 铁死亡分析
+# 06. Ferroptosis analysis
 Rscript 06_ferroptosis_analysis/01_ferroptosis_score.R
 Rscript 06_ferroptosis_analysis/02_Nrf2_regulation.R
 
-# 07. 免疫浸润分析
+# 07. Immune infiltration analysis
 Rscript 07_immune_infiltration/01_immune_infiltration.R
 
-# 08. ceRNA调控网络
+# 08. ceRNA regulatory network
 Rscript 08_ceRNA_network/01_ceRNA_network.R
 
-# 09. 诊断模型
+# 09. Diagnostic model
 Rscript 09_diagnostic_model/01_LASSO_model.R
 Rscript 09_diagnostic_model/02_ML_comparison.R
 
-# 10. 外部验证
+# 10. External validation
 Rscript 10_validation/01_external_validation.R
 
-# 11. 药物发现
+# 11. Drug discovery
 Rscript 11_drug_discovery/01_drug_target_network.R
 
-# 12. 分子对接（需要安装Vina和OpenBabel）
+# 12. Molecular docking (requires Vina and OpenBabel)
 python 12_molecular_docking/01_prepare_receptors.py
 python 12_molecular_docking/02_prepare_ligand.py
 python 12_molecular_docking/03_run_docking.py
 ```
 
-### 3. 数据与结果目录
+### 3. Output Directories
 
-运行脚本后将自动生成以下目录：
+Running the scripts will generate the following directories automatically:
 
 ```
 data/
-└── GEO/                    # GEO原始数据和中间结果
+└── GEO/                    # GEO raw data and intermediate results
     ├── GSE32707_series_matrix.txt.gz
     ├── GSE10474_series_matrix.txt.gz
     ├── GPL10558.txt
@@ -182,37 +201,41 @@ data/
     ├── GSE10474_validation_results.RData
     └── GSE32707_drug_results.RData
 
-results/                    # 分析结果图表
-├── 01_data/               # 数据预处理结果
-├── 02_diff_analysis/      # 差异分析图
-├── 03_GSEA/               # GSEA富集图
-├── 04_WGCNA/              # WGCNA图
-├── 05_PPI/                # PPI网络图
-├── 06_ferroptosis/        # 铁死亡分析图
-├── 07_immune/             # 免疫浸润图
-├── 08_validation/         # 验证结果图
-├── 09_cerna/              # ceRNA网络图
-├── 10_diagnostic/         # 诊断模型图
-├── 11_drug/               # 药物网络图
-├── 12_ml_comparison/      # ML比较图
+results/                    # Analysis results and figures
+├── 01_data/               # Preprocessing results
+├── 02_diff_analysis/      # Differential expression plots
+├── 03_GSEA/               # GSEA enrichment plots
+├── 04_WGCNA/              # WGCNA plots
+├── 05_PPI/                # PPI network figures
+├── 06_ferroptosis/        # Ferroptosis analysis figures
+├── 07_immune/             # Immune infiltration figures
+├── 08_validation/         # Validation results
+├── 09_cerna/              # ceRNA network figures
+├── 10_diagnostic/         # Diagnostic model figures
+├── 11_drug/               # Drug network figures
+├── 12_ml_comparison/      # ML comparison figures
 ├── 13_extended_enrichment/
 ├── 14_mcode_tfmirna/
-└── 15_docking/            # 分子对接结果
+└── 15_docking/            # Molecular docking results
 ```
 
-## 引用说明
+## Citation
 
-如果使用本项目代码，请引用：
+If you use this code in your research, please cite:
 
-> [作者名]. ARDS-ferroptosis-signature: Bioinformatics analysis pipeline for ferroptosis signature in acute respiratory distress syndrome. GitHub, 2024.
+> \[Authors]. ARDS-ferroptosis-signature: Bioinformatics analysis pipeline for ferroptosis signature in acute respiratory distress syndrome. GitHub, 2024. <https://github.com/suyinuo157/ARDS-ferroptosis-signature>
 
-所使用的数据集：
+Data and resources used:
 
-- GSE32707: PMID: [待补充]
-- GSE10474: PMID: [待补充]
-- STRING数据库: https://string-db.org/
-- DrugBank: https://go.drugbank.com/
-- AutoDock Vina: https://vina.scripps.edu/
+- GSE32707: Gene Expression Omnibus
+
+- GSE10474: Gene Expression Omnibus
+
+- STRING database: <https://string-db.org/>
+
+- DrugBank: <https://go.drugbank.com/>
+
+- AutoDock Vina: <https://vina.scripps.edu/>
 
 ## License
 
